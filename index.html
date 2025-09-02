@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KRS Group</title>
+  <style>
+    :root{
+      --bg:#0f1724;
+      --accent:#ef4444;
+      --text:#ffffff;
+      --muted:#a8b3c2;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family: Inter, system-ui, sans-serif;
+      background:#f3f4f6;
+      color:var(--text);
+      scroll-behavior:smooth;
+    }
+
+    /* NAVBAR */
+    .navbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background: linear-gradient(90deg, #0b1220, #122033);
+      padding:12px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      box-shadow: 0 2px 8px rgba(2,6,23,0.25);
+    }
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:700;
+      font-size:18px;
+    }
+    .logo img{
+      width:40px;height:40px;object-fit:cover;border-radius:6px;background:#fff;
+    }
+    .menu{
+      display:flex;gap:18px;align-items:center;
+    }
+    .menu a{
+      text-decoration:none;
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius:6px;
+      transition:all .18s ease;
+      font-weight:600;
+    }
+    .menu a:hover{
+      color:var(--text);
+      background: rgba(255,255,255,0.05);
+    }
+    .menu a.active{
+      color:var(--text);
+      background: linear-gradient(90deg,var(--accent), #ff7b7b);
+    }
+    .hamburger{
+      display:none;width:40px;height:40px;align-items:center;justify-content:center;border-radius:8px;border:none;background:transparent;cursor:pointer;
+    }
+    .hamburger .bar{
+      width:20px;height:2px;background:var(--text);display:block;position:relative;
+    }
+    .hamburger .bar::before,
+    .hamburger .bar::after{
+      content:"";position:absolute;left:0;width:20px;height:2px;background:var(--text);
+    }
+    .hamburger .bar::before{ top:-6px; }
+    .hamburger .bar::after{ top:6px; }
+    @media (max-width:720px){
+      .menu{ 
+        position:absolute;right:12px;top:64px;flex-direction:column;
+        background: linear-gradient(180deg,#071122,#0f1b2b);
+        padding:10px;border-radius:8px;
+        box-shadow: 0 8px 30px rgba(2,6,23,0.4);
+        display:none;
+      }
+      .menu.show{ display:flex; }
+      .hamburger{ display:flex; }
+    }
+
+    /* MAIN SECTION */
+    .main-section{
+      display:flex;flex-wrap:wrap;
+      padding:30px;background:#f8fafc;color:#1e293b;
+    }
+    .main-section .left{
+      flex:0 0 30%;max-width:30%;padding:20px;
+    }
+    .main-section .right{
+      flex:0 0 70%;max-width:70%;
+      padding:20px;display:flex;flex-direction:column;gap:18px;justify-content:center;
+    }
+    .main-section .left img{
+      width:100%;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    }
+    .info-box{
+      background:white;padding:15px 20px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    }
+    .info-box h1{margin:0;font-size:1.8rem;color:#0f172a;}
+    .subtitle{margin:4px 0 0;font-size:1rem;color:#64748b;}
+    .info-box a{color:#2563eb;text-decoration:none;font-weight:500;}
+    .info-box a:hover{text-decoration:underline;}
+    .whatsapp-btn{
+      display:inline-block;background:#25D366;color:white !important;
+      padding:10px 18px;border-radius:6px;font-weight:600;text-decoration:none;
+    }
+
+    /* SECTIONS */
+    section.projects{
+      padding:40px 20px;
+    }
+    section.projects h2{
+      text-align:center;color:#1e293b;margin-bottom:20px;
+    }
+    .card-container{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
+      gap:20px;
+    }
+    .card{
+      background:white;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.08);
+      overflow:hidden;display:flex;flex-direction:column;
+    }
+    .card img{
+      width:100%;height:200px;object-fit:cover;
+    }
+    .card h3{
+      font-size:1.2rem;margin:10px;color:#0f172a;
+    }
+    .card p.price{
+      margin:0 10px;color:#16a34a;font-weight:600;
+    }
+    .card p.desc{
+      margin:10px;color:#475569;font-size:0.9rem;
+    }
+
+    @media(max-width:768px){
+      .main-section{flex-direction:column;}
+      .main-section .left,.main-section .right{flex:1 1 100%;max-width:100%;padding:10px;}
+    }
+    /* Carousel styling */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.slides {
+  display: flex;
+  width: 500%; /* 5 images × 100% */
+  animation: slide 15s infinite;
+}
+
+.slide {
+  width: 20%; /* 100% / 5 images */
+  flex-shrink: 0;
+}
+
+.carousel img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+@keyframes slide {
+  0% { transform: translateX(0); }
+  16% { transform: translateX(0); }
+
+  20% { transform: translateX(-20%); }
+  36% { transform: translateX(-20%); }
+
+  40% { transform: translateX(-40%); }
+  56% { transform: translateX(-40%); }
+
+  60% { transform: translateX(-60%); }
+  76% { transform: translateX(-60%); }
+
+  80% { transform: translateX(-80%); }
+  96% { transform: translateX(-80%); }
+
+  100% { transform: translateX(0); }
+}
+/* Email box (independent) */
+.info-box-email{
+  background:#fff;
+  padding:15px 20px;
+  border-radius:8px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+  color:#0f172a;
+}
+.info-box-email a{
+  color:#2563eb;
+  text-decoration:none;
+  font-weight:600;
+}
+.info-box-email a:hover{
+  text-decoration:underline;
+}
+/* Card को flex column बनाए */
+.card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+/* Carousel ऊपर रहेगा */
+.card .carousel {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Carousel + button का wrapper */
+.card-header {
+  position: relative;
+}
+
+/* Location button */
+.location-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 6px 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: background .2s;
+}
+.location-btn:hover { background:#1d4ed8; }
+
+/* बाकी content */
+.card-content {
+  padding: 10px;
+}
+.card-content h3 {
+  font-size: 1.2rem;
+  margin: 10px 0 5px;
+  color: #0f172a;
+}
+.card-content p.price {
+  margin: 0;
+  color: #16a34a;
+  font-weight: 600;
+}
+.card-content p.desc {
+  margin: 10px 0;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media(max-width: 768px) {
+  .location-btn {
+    font-size: 0.7rem;
+    padding: 5px 8px;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="#" class="logo">
+      <img src="logo.png" alt="logo">
+      <span>KRS GROUP</span>
+    </a>
+    <div class="menu" id="menu">
+      <a href="#all-projects" class="active">All Projects</a>
+      <a href="#running">Running</a>
+      <a href="#upcoming">Upcoming</a>
+    </div>
+    <button class="hamburger" id="hambtn"><span class="bar"></span></button>
+  </nav>
+
+  <!-- MAIN SECTION -->
+  <section class="main-section">
+    <div class="left">
+      <img src="manojme.png" alt="Property Image">
+    </div>
+    <div class="right">
+      <div class="info-box">
+        <h1>Mr. Yogesh Sisodia</h1>
+        <p class="subtitle">Sales Executive</p>
+      </div>
+      <div class="info-box">
+        <strong>Instagram:</strong>
+        <a href="https://instagram.com/bbdevelopers1" target="_blank">@bbdevelopers1</a>
+      </div>
+      <div class="info-box-email">
+  <strong>Email:</strong>
+  <a href="mailto:shreebankeybiharidevelopers@gmail.com?subject=Property%20Enquiry%20-%20KRS%20Group&body=Hello%20Mr.yogesh%2C%0A%0APlease%20share%20details%20about%20the%20property.%0A%0AThanks.">
+    shreebankeybiharidevelopers@gmail.com
+  </a>
+</div>
+      <div class="info-box">
+        <strong>Contact:</strong> <span>7453000096</span>
+      </div>
+      <div class="info-box">
+        <a href="https://wa.me/917453000096?text=Sir%20mujhe%20property%20chahiye" target="_blank" class="whatsapp-btn">💬 WhatsApp Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALL PROJECTS -->
+  <section class="projects" id="all-projects">
+    <h2>All Projects</h2>
+    <div class="card-container">
+      <!-- Repeat 10 Cards -->
+      <div class="card">
+      <div class="card-header">
+  <div class="carousel">
+    <div class="slides">
+      <img src="sanket-barsana-20.jpg" alt="">
+      <img src="sanket-barsana-21.jpg" alt="">
+      <img src="sanket-barsana-23.jpg" alt="">
+      <img src="sanket-barsana-27.jpg" alt="">
+      <img src="sanket-barsana-45.jpg" alt="">
+    </div>
+  </div>
+   <!-- Location button अब carousel के top-right पर -->
+    <a href="https://www.google.com/maps/@27.687421,77.387119,14z?hl=en&entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D" class="location-btn" target="_blank" rel="noopener">
+      📍 Location
+    </a>
+  </div>
+  <!-- बाकी content safe area में -->
+  <div class="card-content">
+  <h3>Shri Radha Rani Townahip Sanket, Barshana</h3>
+  <p class="price">Sold Out</p>
+  <p class="desc">Beautiful property with modern design and great location.</p>
+</div>
+</div>
+      <div class="card">
+        <div class="card-header">
+  <div class="carousel">
+    <div class="slides">
+      <img src="yamuna.jpg" alt="">
+      <img src="yamuna1.jpg" alt="">
+      <img src="yamuna2.jpg" alt="">
+      <img src="yamuna3.jpeg" alt="">
+      <img src="yamuna4.jpg" alt="">
+    </div>
+  </div>
+  <!-- Location button अब carousel के top-right पर -->
+    <a href="https://www.google.com/maps/@27.836806,77.690611,16z?hl=en&entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D" class="location-btn" target="_blank" rel="noopener">
+      📍 Location
+    </a>
+  </div>
+  <div class="card-content">
+  <h3>Shri Radha Rani Townahip Yamuna Expressway</h3>
+  <p class="price">Sold Out</p>
+  <p class="desc">Beautiful property with modern design and great location.</p>
+</div>
+</div>
+      <div class="card">
+        <div class="card-header">
+  <div class="carousel">
+    <div class="slides">
+      <img src="gwaliorh1.jpg" alt="">
+      <img src="gwaliorh2.jpg" alt="">
+      <img src="gwaliorh3.jpg" alt="">
+      <img src="gwaliorh4.jpg" alt="">
+      <img src="gwaliorh5.jpg" alt="">
+    </div>
+  </div>
+  <!-- Location button अब carousel के top-right पर -->
+    <a href="https://www.google.com/maps/@27.041917,77.974639,16z?hl=en&entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D" class="location-btn" target="_blank" rel="noopener">
+      📍 Location
+    </a>
+  </div>
+  <div class="card-content">
+  <h3>Maa Kaila Devi Townahip Gwalior Highway</h3>
+  <p class="price">Sold Out</p>
+  <p class="desc">Beautiful property with modern design and great location.</p>
+</div>
+</div>
+      <div class="card">
+        <div class="card-header">
+  <div class="carousel">
+    <div class="slides">
+      <img src="Govardhan1.jpg" alt="">
+      <img src="Govardhan2.jpg" alt="">
+      <img src="Govardhan3.jpg" alt="">
+      <img src="Govardhan4.jpg" alt="">
+      <img src="Govardhan5.jpg" alt="">
+    </div>
+  </div>
+  <!-- Location button अब carousel के top-right पर -->
+    <a href="https://www.google.com/maps/@27.532806,77.506417,16z?hl=en&entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D" class="location-btn" target="_blank" rel="noopener">
+      📍 Location
+    </a>
+  </div>
+  <div class="card-content">
+  <h3>Shri Radha Rani Townahip Govardhan</h3>
+  <p class="price">Sold Out</p>
+  <p class="desc">Beautiful property with modern design and great location.</p>
+</div>
+</div>
+      <div class="card">
+        <div class="card-header">
+  <div class="carousel">
+    <div class="slides">
+      <img src="chhatabarshana1.jpg" alt="">
+      <img src="chhatabarshana2.jpg" alt="">
+      <img src="chhatabarshana3.jpg" alt="">
+      <img src="chhatabarshana4.jpg" alt="">
+      <img src="chhatabarshana5.jpg" alt="">
+    </div>
+  </div>
+      <a href="https://www.google.com/maps/@27.674389,77.414972,16z?hl=en&entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D" class="location-btn" target="_blank" rel="noopener">
+      📍 Location
+    </a>
+  </div>
+  <div class="card-content">
+  <h3>Shri Radha Rani Township Chhata Highway Barshana</h3>
+  <p class="price">Sold Out</p>
+  <p class="desc">Beautiful property with modern design and great location.</p>
+</div>
+</div>
+      <div class="card">
+        <div class="card-header">
+  <div class="carousel">
+    <div class="slides">
+      <img src="nandbaba-enclave1.jpg" alt="">
+      <img src="nandbaba-enclave2.jpg" alt="">
+      <img src="nandbaba-enclave3.jpg" alt="">
+      <img src="nandbaba-enclave4.jpg" alt="">
+      <img src="nandbaba-enclave5.jpg" alt="">
+    </div>
+  </div>
+  <a href="https://www.google.com/maps/@27.687583,77.386972,16z?hl=en&entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D" class="location-btn" target="_blank" rel="noopener">
+      📍 Location
+    </a>
+  </div>
+   <div class="card-content">
+  <h3>Shri Nandbaba Enclave Barsana Road Nandgaon</h3>
+  <p class="price">Sold Out</p>
+  <p class="desc">Beautiful property with modern design and great location.</p>
+</div>
+</div>
+      <div class="card">
+        <div class="card-header">
+  <div class="carousel">
+    <div class="slides">
+      <img src="semri1.jpg" alt="">
+      <img src="semri2.jpg" alt="">
+      <img src="semri3.jpg" alt="">
+      <img src="semri4.jpg" alt="">
+      <img src="semri5.jpg" alt="">
+    </div>
+  </div>
+  <a href="https://www.google.com/maps/@27.114528,78.03125,16z?hl=en&entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D" class="location-btn" target="_blank" rel="noopener">
+      📍 Location
+    </a>
+  </div>
+  <div class="card-content">
+  <h3>Maa kaila Devi Township Semri Road Agra</h3>
+  <p class="price">Sold Out</p>
+  <p class="desc">Beautiful property with modern design and great location.</p>
+</div>
+</div>
+      <div class="card">
+        <div class="card-header">
+  <div class="carousel">
+    <div class="slides">
+      <img src="mktfto1.jpeg" alt="">
+      <img src="mktfto2.jpeg" alt="">
+      <img src="mktfto3.jpeg" alt="">
+      <img src="mktfto4.jpeg" alt="">
+      <img src="mktfto5.jpeg" alt="">
+    </div>
+  </div>
+  <a href="https://www.google.com/maps/place/Itaura,+Uttar+Pradesh+282009/@27.0969737,77.9686402,15z/data=!3m1!4b1!4m6!3m5!1s0x3974744be7cae193:0x371ab076f65f9f85!8m2!3d27.0957356!4d77.9795753!16s%2Fg%2F1q5bfhdnw?hl=en&entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D" class="location-btn" target="_blank" rel="noopener">
+      📍 Location
+    </a>
+  </div>
+  <div class="card-content">
+  <h3>Maa kaila Devi Township Phase- 2 Itora, Agra</h3>
+  <p class="price">₹15000/SQ.YARD</p>
+  <p class="desc">Beautiful property with modern design and great location.</p>
+</div> 
+</div>
+      <div class="card">
+        <div class="card-header">
+  <div class="carousel">
+    <div class="slides">
+      <img src="girirajdharan1.jpg" alt="">
+      <img src="girirajdharan2.jpg" alt="">
+      <img src="girirajdharan3.jpg" alt="">
+      <img src="girirajdharan4.jpg" alt="">
+      <img src="girirajdharan5.jpg" alt="">
+    </div>
+  </div>
+  <a href="https://www.google.com/maps/place/Chhata+Rural,+Uttar+Pradesh+281401/@27.7303383,77.48058,13.5z/data=!4m6!3m5!1s0x397315870e3c703f:0xbf95b8951b3201e0!8m2!3d27.7225032!4d77.495443!16zL20vMGYwbm5r?hl=en&entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D" class="location-btn" target="_blank" rel="noopener">
+      📍 Location
+    </a>
+  </div>
+  <div class="card-content">
+  <h3>Shri Radha Rani Township Giriraj-Dharan</h3>
+  <p class="price">A-₹9500/SQ.YARD / B-₹9000/SQ.YARD</p>
+  <p class="desc">Beautiful property with modern design and great location.</p>
+</div> 
+</div>
+      <div class="card">
+        <div class="card-header">
+  <div class="carousel">
+    <div class="slides">
+      <img src="SRRTJV1.jpeg" alt="">
+      <img src="SRRTJV2.jpeg" alt="">
+      <img src="SRRTJV3.jpeg" alt="">
+      <img src="SRRTJV4.jpeg" alt="">
+      <img src="SRRTJV5.jpeg" alt="">
+    </div>
+  </div>
+  <a href="https://www.google.com/maps/place/Jait,+Uttar+Pradesh+281406/@27.5811637,77.5918174,13.75z/data=!4m6!3m5!1s0x39736da0a5bd3133:0xc68130ef3b999e56!8m2!3d27.5808408!4d77.6106512!16s%2Fg%2F12lrb8sgj?hl=en&entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D" class="location-btn" target="_blank" rel="noopener">
+      📍 Location
+    </a>
+  </div>
+  <div class="card-content">
+  <h3>Shri Radha Rani Township Vrindavan-jait</h3>
+  <p class="price">₹9000/SQ.YARD / ₹12500/SQ.YARD</p>
+  <p class="desc">Beautiful property with modern design and great location.</p>
+</div>
+</div>
+    </div>
+  </section>
+
+  <!-- RUNNING -->
+  <section class="projects" id="running">
+    <h2>Running</h2>
+    <div class="card-container">
+      <!-- 10 Cards -->
+       <div class="card">
+        <div class="card-header">
+  <div class="carousel">
+    <div class="slides">
+      <img src="girirajdharan1.jpg" alt="">
+      <img src="girirajdharan2.jpg" alt="">
+      <img src="girirajdharan3.jpg" alt="">
+      <img src="girirajdharan4.jpg" alt="">
+      <img src="girirajdharan5.jpg" alt="">
+    </div>
+  </div>
+  <a href="https://www.google.com/maps/place/Chhata+Rural,+Uttar+Pradesh+281401/@27.7303383,77.48058,13.5z/data=!4m6!3m5!1s0x397315870e3c703f:0xbf95b8951b3201e0!8m2!3d27.7225032!4d77.495443!16zL20vMGYwbm5r?hl=en&entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D" class="location-btn" target="_blank" rel="noopener">
+      📍 Location
+    </a>
+  </div>
+  <div class="card-content">
+  <h3>Shri Radha Rani Township Giriraj-Dharan</h3>
+  <p class="price">A-₹9500/SQ.YARD / B-₹9000/SQ.YARD</p>
+  <p class="desc">Beautiful property with modern design and great location.</p>
+</div>
+</div> 
+<div class="card">
+        <div class="card-header">
+  <div class="carousel">
+    <div class="slides">
+      <img src="SRRTJV1.jpeg" alt="">
+      <img src="SRRTJV2.jpeg" alt="">
+      <img src="SRRTJV3.jpeg" alt="">
+      <img src="SRRTJV4.jpeg" alt="">
+      <img src="SRRTJV5.jpeg" alt="">
+    </div>
+  </div>
+  <a href="https://www.google.com/maps/place/Jait,+Uttar+Pradesh+281406/@27.5811637,77.5918174,13.75z/data=!4m6!3m5!1s0x39736da0a5bd3133:0xc68130ef3b999e56!8m2!3d27.5808408!4d77.6106512!16s%2Fg%2F12lrb8sgj?hl=en&entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D" class="location-btn" target="_blank" rel="noopener">
+      📍 Location
+    </a>
+  </div>
+  <div class="card-content">
+  <h3>Shri Radha Rani Township Vrindavan-jait</h3>
+  <p class="price">₹9000/SQ.YARD / ₹12500/SQ.YARD</p>
+  <p class="desc">Beautiful property with modern design and great location.</p>
+</div>
+</div>
+<div class="card">
+        <div class="card-header">
+  <div class="carousel">
+    <div class="slides">
+      <img src="mktfto1.jpeg" alt="">
+      <img src="mktfto2.jpeg" alt="">
+      <img src="mktfto3.jpeg" alt="">
+      <img src="mktfto4.jpeg" alt="">
+      <img src="mktfto5.jpeg" alt="">
+    </div>
+  </div>
+  <a href="https://www.google.com/maps/place/Itaura,+Uttar+Pradesh+282009/@27.0969737,77.9686402,15z/data=!3m1!4b1!4m6!3m5!1s0x3974744be7cae193:0x371ab076f65f9f85!8m2!3d27.0957356!4d77.9795753!16s%2Fg%2F1q5bfhdnw?hl=en&entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D" class="location-btn" target="_blank" rel="noopener">
+      📍 Location
+    </a>
+  </div>
+  <div class="card-content">
+  <h3>Maa kaila Devi Township Phase- 2 Itora, Agra</h3>
+  <p class="price">₹15000/SQ.YARD</p>
+  <p class="desc">Beautiful property with modern design and great location.</p>
+</div> 
+</div>
+    </div>
+  </section>
+
+  <!-- UPCOMING -->
+  <section class="projects" id="upcoming">
+    <h2>Upcoming</h2>
+    <div class="card-container">
+      <!-- 10 Cards -->
+       <div class="card">
+        <div class="card-header"></div>
+  <div class="carousel">
+    <div class="slides">
+      <img src="mktfto2.jpeg" alt="">
+      <img src="girirajdharan1.jpg" alt="">
+      <img src="sanket-barsana-20.jpg" alt="">
+      <img src="mktfto5.jpeg" alt="">
+      <img src="sanket-barsana-27.jpg" alt="">
+    </div>
+  </div>
+  <a href="https://www.google.com/maps/place/Shri+Dhanwantri+Ayurvedic+Medical+College+%26+Research+Centre/@27.6798274,77.5179841,14.5z/data=!4m9!1m2!2m1!1snari+semri!3m5!1s0x397314efe9551899:0xcdfcf443d54ba338!8m2!3d27.674051!4d77.5282367!16s%2Fg%2F11bxjh4sgw?hl=en&entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D" class="location-btn" target="_blank" rel="noopener">
+      📍 Location
+    </a>
+  </div>
+    <div class="card-content">
+  <h3>Shri Radha Rani Township Nari-shemri</h3>
+  <p class="price">₹12000/SQ.YARD</p>
+  <p class="desc">Launching 28 September 2025 Pre-Booking Start At - ₹11000/SQ.YARD 📍Location - Agra Delhi National Highway -/ Beautiful property with modern design and great location.</p>
+</div>
+</div>
+    </div>
+  </section>
+
+  <script>
+    // Hamburger toggle
+    const btn = document.getElementById('hambtn');
+    const menu = document.getElementById('menu');
+    btn.addEventListener('click', ()=> menu.classList.toggle('show'));
+  </script>
+</body>
+</html>
+
+
